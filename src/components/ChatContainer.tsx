@@ -36,20 +36,22 @@ export const ChatContainer = (props: Props): ReactElement => {
 
   return (
     <div className="flex flex-col w-full h-full bg-gray-800">
-      <div
-        ref={messagesContainerRef}
-        className="w-full h-full p-8 flex flex-col gap-4 items-end overflow-y-auto"
-      >
-        {messages
-          ? messages.map((message) => (
-              <ChatItem
-                key={message.id}
-                message={message}
-                onAction={onAction}
-              />
-            ))
-          : null}
-      </div>
+      {messages?.length ? (
+        <div
+          ref={messagesContainerRef}
+          className="w-full h-full p-8 flex flex-col gap-4 items-end overflow-y-auto"
+        >
+          {messages.map((message) => (
+            <ChatItem key={message.id} message={message} onAction={onAction} />
+          ))}
+        </div>
+      ) : (
+        <div className="w-full h-full p-8 flex items-end justify-center">
+          <div className="flex items-center justify-center w-full h-full p-8 text-center bg-gray-800 text-4xl text-white">
+            No messages yet
+          </div>
+        </div>
+      )}
       <MessageComposer onAction={onAction} />
     </div>
   );
